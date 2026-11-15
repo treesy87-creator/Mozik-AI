@@ -1,4 +1,3 @@
-
 package com.example.brassistant
 
 object AnswerEngine {
@@ -12,7 +11,7 @@ object AnswerEngine {
         "бразилии" to "Бразилиа",
         "россии" to "Москва",
         "китая" to "Пекин",
-        "испания" to "Мадрид",
+        "испании" to "Мадрид",
         "испаннии" to "Мадрид",
         "великобритании" to "Лондон",
         "сша" to "Вашингтон",
@@ -33,12 +32,11 @@ object AnswerEngine {
             .replace('÷', '/')
 
         val capital = Regex(
-            "(?i)(?:столиц[аы]|столица)\\s+(?:ли)?([а-яё]+)"
+            "(?:столица|столицы)\\s+(?:ли)?([а-яё]+)"
         ).find(text)
 
         if (capital != null) {
             val country = capital.groupValues[1]
-                .trim('?', '.', ',', ':')
             capitals[country]?.let {
                 return "Столица: $it"
             }
@@ -57,15 +55,10 @@ object AnswerEngine {
             "+" -> a + b
             "-" -> a - b
             "*" -> a * b
-            "/" -> if (b != 0L && a % b == 0L) {
-                a / b
-            } else {
-                return ""
-            }
+            "/" -> if (b != 0L && a % b == 0L) a / b else return ""
             else -> return ""
         }
 
         return "Ответ: $result"
     }
 }
-ы
